@@ -15,7 +15,7 @@ interface Project {
 const jsonData: { projects: Project[] } = {
     "projects": [
         {
-            "project_name": "xyz",
+            "project_name": "春日部市田中１",
             "dates": [
                 {
                     "name": "Mike birthday",
@@ -30,7 +30,7 @@ const jsonData: { projects: Project[] } = {
             ]
         },
         {
-            "project_name": "abc",
+            "project_name": "所沢市山田３",
             "dates": [
                 {
                     "name": "Mike birthday",
@@ -51,13 +51,12 @@ const Calendar: React.FC = () => {
     const [numberOfDays, setNumberOfDays] = useState<number>(200);
     const [startDate, setStartDate] = useState<string>('2023-01-01');
 
-    const generateCalendar = () => {
+    const generateCalendar = (project: Project) => {
         const calendar: JSX.Element[] = [];
         const monthHeader: JSX.Element[] = [];
         const dayHeader: JSX.Element[] = [];
         const startDateObj = new Date(startDate);
 
-        const project = jsonData.projects[0];
         const projectName = project.project_name;
         const dates = project.dates;
 
@@ -97,7 +96,7 @@ const Calendar: React.FC = () => {
             const date = new Date(dateInfo.date);
             const dayIndex = Math.floor((date.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24));
             calendar[0] = (
-                <div className="project-name">TEST</div>
+                <div className="project-name"></div>
             )
             if (dayIndex >= 1 && dayIndex < numberOfDays) {
                 calendar[dayIndex] = (
@@ -108,8 +107,6 @@ const Calendar: React.FC = () => {
 
         return { monthHeader, dayHeader, calendar, projectName };
     };
-
-    const { monthHeader, dayHeader, calendar, projectName } = generateCalendar();
 
     return (
         <div className="bg-gray-100 p-8">
@@ -134,17 +131,22 @@ const Calendar: React.FC = () => {
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                     />
-                    <button onClick={generateCalendar} className="bg-blue-500 text-white p-1 ml-2">Generate</button>
                 </div>
 
-                <div className="calendar-container">
-                    <div className="project-name">{projectName}</div>
-                    <div id="month-header">{monthHeader}</div>
-                    <div id="day-header">{dayHeader}</div>
-                    <div id="calendar">{calendar}</div>
-                </div>
+                {jsonData.projects.map((project, index) => {
+                    const { monthHeader, dayHeader, calendar, projectName } = generateCalendar(project);
+                    return (
+                        <div key={index} className="calendar-container mb-8">
+                            <div className="project-name">{projectName}</div>
+                            <div id="month-header">{monthHeader}</div>
+                            <div id="day-header">{dayHeader}</div>
+                            <div id="calendar">{calendar}</div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
 };
+
 export default Calendar;
