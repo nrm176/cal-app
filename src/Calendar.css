@@ -1,0 +1,29 @@
+.activity-level-0 { background-color: #ebedf0; }
+.activity-level-1 { background-color: #c6e48b; }
+.activity-level-2 { background-color: #7bc96f; }
+.activity-level-3 { background-color: #239a3b; }
+.activity-level-4 { background-color: #196127; }
+.calendar-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.day {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    border-radius: 4px;
+}
+.project-name {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin-right: 10px;
+}
+.month-header, .day-header {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    text-align: center;
+}
